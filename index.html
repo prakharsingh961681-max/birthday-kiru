@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Kiru 🤍</title>
+<meta name="description" content="A birthday scrapbook for Kiru.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&family=Poppins:wght@300;400;500;600&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient background: canvas particles + drifting hearts, sit behind everything -->
+<canvas id="ambient-canvas"></canvas>
+<div class="heart-field" id="heartField"></div>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="hero">
+  <div class="hero-bg-blob b1"></div>
+  <div class="hero-bg-blob b2"></div>
+
+  <div class="hero-eyebrow">for the one and only</div>
+  <h1>Happy Birthday<br><span class="name">Kiru 🤍</span></h1>
+  <p class="hero-sub" id="typedSub"></p>
+  <button class="hero-btn" id="openSurpriseBtn">Open Your Surprise</button>
+  <div class="scroll-hint">scroll down</div>
+</section>
+
+<!-- ======================= JOURNEY ======================= -->
+<section class="journey" id="journey">
+  <div class="section-head">
+    <div class="eyebrow">A Little Look Back</div>
+    <h2 class="section-title">Our Journey</h2>
+  </div>
+  <div class="timeline" id="timeline"><!-- cards injected by script.js --></div>
+</section>
+
+<!-- ======================= GALLERY ======================= -->
+<section class="gallery-section" id="gallery">
+  <div class="section-head">
+    <div class="eyebrow">Frames Worth Keeping</div>
+    <h2 class="section-title">The Gallery</h2>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"><!-- images injected by script.js --></div>
+</section>
+
+<!-- Lightbox (shared by gallery) -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" id="lightboxClose">&times;</div>
+  <div class="lightbox-box" id="lightboxBox"></div>
+</div>
+
+<!-- ======================= MEMORY JAR ======================= -->
+<section class="jar-section" id="memoryJar">
+  <div class="section-head">
+    <div class="eyebrow">Little Things I Kept</div>
+    <h2 class="section-title">Memory Jar</h2>
+  </div>
+  <div class="jar-grid" id="jarGrid"><!-- cards injected by script.js --></div>
+</section>
+
+<!-- ======================= REASONS YOU'RE AMAZING ======================= -->
+<section class="reasons-section" id="reasons">
+  <div class="section-head">
+    <div class="eyebrow">Just A Few, Honestly</div>
+    <h2 class="section-title">Reasons You're Amazing</h2>
+  </div>
+  <ul class="reasons-list" id="reasonsList"><!-- items injected by script.js --></ul>
+</section>
+
+<!-- ======================= COUNTDOWN ======================= -->
+<section class="countdown-section" id="countdown">
+  <div class="section-head">
+    <div class="eyebrow">Almost There</div>
+    <h2 class="section-title">Counting Down to 8 August</h2>
+  </div>
+
+  <div class="countdown-grid" id="countdownWrap">
+    <div class="cd-box"><div class="cd-number" id="cdDays">00</div><div class="cd-label">Days</div></div>
+    <div class="cd-box"><div class="cd-number" id="cdHours">00</div><div class="cd-label">Hours</div></div>
+    <div class="cd-box"><div class="cd-number" id="cdMins">00</div><div class="cd-label">Minutes</div></div>
+    <div class="cd-box"><div class="cd-number" id="cdSecs">00</div><div class="cd-label">Seconds</div></div>
+  </div>
+  <div class="cd-celebrate" id="cdCelebrate" style="display:none;"></div>
+</section>
+
+<!-- ======================= LETTER ======================= -->
+<section class="letter-section" id="letter">
+  <div class="petal-field" id="petalField"></div>
+
+  <div class="letter-wrap">
+    <div class="paper" id="paper">
+      <span class="corner-tr">✿</span>
+      <span class="corner-bl">✿</span>
+
+      <div class="letter-heading">Dear Kiru,</div>
+      <div class="letter-sub">happy birthday, my favourite person</div>
+
+      <div class="letter-body" id="letterBody">
+        <p>I don't think there is a version of my life in the last few years that doesn't have you loudly, chaotically, wonderfully in it. Somewhere between the coaching classes, the street food we definitely shouldn't have eaten twice in one day, and a thousand voice notes we've sent each other, you became the kind of friend people spend a lifetime hoping to find.</p>
+
+        <p>You are, without exaggeration, the most chaotic, kind, and beautiful soul I know — and I mean all three in the same breath, because that's exactly how you show up. Chaotic in the way you turn an ordinary evening into a story we'll be telling for years. Kind in the way you notice when someone's having a hard day before they've even said a word. Beautiful in every single way that actually matters.</p>
+
+        <p>Thank you for the gossip sessions that ran two hours too long, the laughs that left us both in actual pain, the inside jokes that make no sense to anyone else and every ounce of sense to us. Thank you for being someone I never have to explain myself to.</p>
+
+        <p>Here's to another year of your particular brand of magic — and to every memory we haven't made yet. I hope this year hands you everything you deserve, Kiru, and then a little more, just because.</p>
+
+        <p>I love you endlessly. Happiest of birthdays.</p>
+      </div>
+
+      <div class="letter-sign">always, your person ✿</div>
+      <div class="letter-edit-note">— replace this letter anytime by editing the #letterBody paragraphs in index.html —</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ENDING ======================= -->
+<section class="ending-section" id="ending">
+  <div class="ending-inner" id="endingInner">
+    <p class="ending-text">
+      No matter where life takes us,<br>
+      I hope we always stay this chaotic.
+    </p>
+    <span class="ending-name">Happy Birthday, Kiru 🤍</span>
+    <div class="ending-footer-text">made with endless memories</div>
+  </div>
+</section>
+
+<footer>
+  for Kiru, always
+</footer>
+
+<!-- ======================= FLOATING MUSIC PLAYER ======================= -->
+<div class="music-player">
+  <span class="music-tooltip" id="musicTooltip">play our song</span>
+  <button class="vinyl-btn" id="vinylBtn" aria-label="Play birthday song"></button>
+</div>
+<!-- Drop an mp3 named birthday-song.mp3 into /audio and it will just work -->
+<audio id="bgAudio" src="audio/birthday-song.mp3" loop preload="none"></audio>
+
+<!-- Scripts -->
+<script src="script.js" defer></script>
+</body>
+</html>
