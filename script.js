@@ -130,10 +130,18 @@ function buildGallery(){
     const item = document.createElement('div');
     item.className = 'g-item';
 
-    const img = document.createElement('img');
-    img.alt = `Memory ${i}`;
-    img.loading = 'lazy';
-    img.src = `${GALLERY_PATH}${i}.png`;
+   const img = document.createElement('img');
+img.alt = `Memory ${i}`;
+img.loading = 'lazy';
+
+const imageNames = [
+  "RSRY412.png",
+  "RXLDT5D.png",
+  "Screenshot_2026-07-30_175135.png",
+  "Screenshot_2026-07-30_175207.png"
+];
+
+img.src = `images/${imageNames[i - 1]}`;
 
     const placeholder = document.createElement('div');
     placeholder.className = 'g-placeholder';
