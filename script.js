@@ -133,7 +133,7 @@ function buildGallery(){
     const img = document.createElement('img');
     img.alt = `Memory ${i}`;
     img.loading = 'lazy';
-    img.src = `${GALLERY_PATH}${i}.jpg`;
+    img.src = `${GALLERY_PATH}${i}.png`;
 
     const placeholder = document.createElement('div');
     placeholder.className = 'g-placeholder';
