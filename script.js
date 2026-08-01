@@ -38,7 +38,7 @@ const JOURNEY_ITEMS = [
 // Gallery auto-loads images/memory-1.jpg ... images/memory-N.jpg from GitHub.
 // If a file isn't found yet, a pretty placeholder shows instead — no code
 // changes needed later, just drop matching files into /images.
-const GALLERY_COUNT = 4;
+const GALLERY_COUNT = 8;
 const GALLERY_PATH = 'images/memory-';
 
 const MEMORY_JAR_ITEMS = [
@@ -138,9 +138,12 @@ const imageNames = [
   "RSRY412.png",
   "RXLDT5D.png",
   "Screenshot_2026-07-30_175135.png",
-  "Screenshot_2026-07-30_175207.png"
+  "Screenshot_2026-07-30_175207.png",
+  "R8ZFHXJ.png",
+  "R97IX9S.png",
+  "RCSTWT7.png",
+  "RH5E3TG.png"
 ];
-
 img.src = `images/${imageNames[i - 1]}`;
 
     const placeholder = document.createElement('div');
