@@ -6,7 +6,7 @@
    1.  Content config (edit here to change copy)
    2.  Typing effect (hero subheading)
    3.  Timeline builder
-   4.  Gallery builder (auto-loads /images/*, falls back to placeholder)
+   4.  Gallery builder (loads explicit /images/* filenames, falls back to placeholder)
    5.  Memory Jar builder
    6.  Reasons checklist builder
    7.  Lightbox
@@ -35,11 +35,20 @@ const JOURNEY_ITEMS = [
   { icon:'🌸', title:'Future Memories', text:'Every birthday, every plan, every "someday" we haven\'t lived yet — I can\'t wait for all of it.' },
 ];
 
-// Gallery auto-loads images/memory-1.jpg ... images/memory-N.jpg from GitHub.
-// If a file isn't found yet, a pretty placeholder shows instead — no code
-// changes needed later, just drop matching files into /images.
-const GALLERY_COUNT = 8;
-const GALLERY_PATH = 'images/memory-';
+// Gallery loads these exact files from /images. Each one is matched by its
+// real filename (as committed to the repo) — nothing is auto-guessed. If a
+// listed file is ever missing, that one card quietly shows a placeholder
+// instead of breaking the layout.
+const GALLERY_IMAGES = [
+  'RSRY412.png',
+  'RXLDT5D.png',
+  'Screenshot_2026-07-30_175135.png',
+  'Screenshot_2026-07-30_175207.png',
+  'R8ZFHXJ.png',
+  'R97IX9S.png',
+  'RCSTWT7.png',
+  'RH5E3TG.png'
+];
 
 const MEMORY_JAR_ITEMS = [
   { icon:'📚', text:'You made coaching fun.' },
@@ -117,53 +126,53 @@ function buildTimeline(){
 
 /* =========================================================
    4. GALLERY BUILDER
-   Tries to load images/memory-1.jpg, memory-2.jpg, ... automatically.
-   If a file 404s, it swaps in a soft placeholder instead — so you can
-   add photos to the /images folder on GitHub at any time and the
-   gallery fixes itself, no HTML/JS editing required.
+   Loads the exact files listed in GALLERY_IMAGES from /images. If a file
+   ever fails to load (e.g. renamed or removed), that single card falls
+   back to a soft placeholder instead of breaking the grid.
 ========================================================= */
 function buildGallery(){
   const grid = document.getElementById('galleryGrid');
   const placeholderIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 16l-5.5-5.5L9 17"/></svg>`;
 
-  for(let i = 1; i <= GALLERY_COUNT; i++){
+  GALLERY_IMAGES.forEach((filename, idx) => {
     const item = document.createElement('div');
     item.className = 'g-item';
 
-   const img = document.createElement('img');
-img.alt = `Memory ${i}`;
-img.loading = 'lazy';
-
-const imageNames = [
-  "RSRY412.png",
-  "RXLDT5D.png",
-  "Screenshot_2026-07-30_175135.png",
-  "Screenshot_2026-07-30_175207.png",
-  "R8ZFHXJ.png",
-  "R97IX9S.png",
-  "RCSTWT7.png",
-  "RH5E3TG.png"
-];
-img.src = `images/${imageNames[i - 1]}`;
-
     const placeholder = document.createElement('div');
     placeholder.className = 'g-placeholder';
-    placeholder.innerHTML = `${placeholderIcon}<span>memory ${String(i).padStart(2,'0')}</span>`;
+    placeholder.innerHTML = `${placeholderIcon}<span>memory ${String(idx + 1).padStart(2, '0')}</span>`;
 
-    // start with placeholder visible; swap to <img> only once it loads successfully
+    const img = document.createElement('img');
+    img.alt = `Memory ${idx + 1}`;
+    img.style.display = 'none'; // hidden until it actually finishes loading
+
+    // NOTE: intentionally not using loading="lazy" here. In testing, a lazy
+    // image that starts hidden (needed for the placeholder-swap fallback
+    // below) can end up permanently stuck — its load/error events never
+    // fire because the browser can't confirm it has scrolled into view.
+    // With only 8 fixed images this is a non-issue for performance, and it
+    // guarantees every photo actually loads and displays correctly.
     item.appendChild(placeholder);
+    item.appendChild(img);
 
     img.addEventListener('load', () => {
-      item.innerHTML = '';
-      item.appendChild(img);
+      placeholder.style.display = 'none';
+      img.style.display = 'block';
     });
     img.addEventListener('error', () => {
-      // stays as placeholder — file simply hasn't been added yet
+      // stays as placeholder — check that the filename/case matches the repo exactly
     });
 
-    item.addEventListener('click', () => openLightbox(item.innerHTML));
+    item.addEventListener('click', () => {
+      const visibleEl = img.style.display === 'none' ? placeholder : img;
+      openLightbox(visibleEl.outerHTML);
+    });
+
     grid.appendChild(item);
-  }
+
+    // set src last, after the image is already in the document
+    img.src = `images/${filename}`;
+  });
 }
 
 /* =========================================================
